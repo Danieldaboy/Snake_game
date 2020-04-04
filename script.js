@@ -24,7 +24,6 @@ let classifier;
 
 // la vidéo de notre webcam, qu'on va charger ensuite
 let video;
-let audio
 
 // avec p5js, cette fonction est lancée en 1ère
 // elle initialise le jeu
@@ -33,13 +32,12 @@ function setup() {
   classifier = ml5.soundClassifier("https://teachablemachine.withgoogle.com/models/Uglvd9pnN/model.json");
 
   // ce code permet de récupérer la vidéo de la webcam
-  audio = createCapture(AUDIO);
 
   // et on lance notre modèle !
   // il va essayer de deviner quel mouvement on fait
   // quand il aura trouvé, il lancera la fonction 'findMovement'
   // avec le mouvement identifié
-  classifier.classify(audio, findMovement);
+  classifier.classify(findMovement);
 
   // notre écran de jeu fait la largeur 'gameWidth' et la hauteur 'gameHeight'
   createCanvas(gameWidth, gameHeight);
@@ -82,18 +80,22 @@ function draw() {
 // à vous de les mettre ;)
 function goUp() {
   snakeY -= pixelSize;
+  console.log();
 }
 
 function goDown() {
   snakeY += pixelSize;
+  console.log();
 }
 
 function goLeft() {
   snakeX -= pixelSize;
+  console.log();
 }
 
 function goRight() {
   snakeX += pixelSize;
+  console.log();
 }
 
 // cette fonction est lancée quand le modèle identifie un mouvement
@@ -134,7 +136,7 @@ function findMovement(error, results) {
     // dans tous les cas, on relance le modèle
     // pour identifier le prochain mouvement
     setTimeout(function () {
-      classifier.classify(video, findMovement);
+      classifier.classify(findMovement);
     }, 1000);
 }
 
